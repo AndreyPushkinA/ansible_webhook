@@ -11,10 +11,14 @@ def webhook():
     event = request.headers.get('X-GitHub-Event')
     if event == 'push':
         try:
-            playbook_path = "/opt/webhook/playbook_prod.yml"
+            branch = data['ref'].split('/')[-1]
+            if branch == 'main':
+                playbook_path = "/opt/webhook/playbook_prod.yml"
             
-            subprocess.run(["ansible-playbook", playbook_path])
-            print("Ansible playbook executed successfully")
+                subprocess.run(["ansible-playbook", playbook_path])
+                print("Ansible playbook executed successfully for the main branch")
+            else:
+                print("Push event received, but not for the main branch")
         except Exception as e:
             print("Error executing Ansible playbook:", e)
 
