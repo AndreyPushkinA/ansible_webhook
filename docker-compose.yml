@@ -1,8 +1,14 @@
 version: '3'
 services:
-  ansible-container:
-    image: python:3.8 # You can use any suitable Python base image
+  myapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
-      - ./requirements.txt:/app/requirements.txt
+      - .:/app
+      - /opt/webhook:/opt/webhook
+      - /opt/cicdtest/chat-messages-telegram:/opt/cicdtest/chat-messages-telegram 
     working_dir: /app
-    command: bash -c "pip install -r requirements.txt && bash"
+    ports:
+      - "5000:5000"  # Map port 8080 on host to port 8000 in container
+    command: ["python3", "webhook.py"]
