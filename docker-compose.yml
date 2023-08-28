@@ -10,5 +10,5 @@ services:
       - /opt/cicdtest/chat-messages-telegram:/opt/cicdtest/chat-messages-telegram 
     working_dir: /app
     ports:
-      - "5000:5000"  # Map port 8080 on host to port 8000 in container
+      - "5000:5000"
     command: ["python3", "webhook.py"]
