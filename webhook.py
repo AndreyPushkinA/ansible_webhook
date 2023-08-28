@@ -11,7 +11,7 @@ def webhook():
     event = request.headers.get('X-GitHub-Event')
     if event == 'push':
         try:
-            playbook_path = "/opt/webhook/playbook.yml"
+            playbook_path = "/opt/webhook/playbook_prod.yml"
             
             subprocess.run(["ansible-playbook", playbook_path])
             print("Ansible playbook executed successfully")
