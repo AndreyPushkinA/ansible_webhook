@@ -1,0 +1,8 @@
+version: '3'
+services:
+  ansible-container:
+    image: python:3.8 # You can use any suitable Python base image
+    volumes:
+      - ./requirements.txt:/app/requirements.txt
+    working_dir: /app
+    command: bash -c "pip install -r requirements.txt && bash"

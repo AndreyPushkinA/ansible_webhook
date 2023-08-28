@@ -1,0 +1,33 @@
+root@kolkhoz:/opt/webhook# cat playbook.yml 
+- name: Update Repository
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    repo_path: /opt/cicdtest/chat-messages-telegram
+
+  tasks:
+    - name: Stash Changes
+      command: git stash
+      args:
+        chdir: "{{ repo_path }}"
+      register: stash_output
+
+    - name: Pull Latest Changes
+      command: git pull
+      args:
+        chdir: "{{ repo_path }}"
+      register: pull_output
+
+    - name: Apply Stashed Changes
+      command: git stash apply
+      args:
+         chdir: "{{ repo_path }}"
+      register: apply_output
+
+    - name: Display Results
+      debug:
+        var:
+          - stash_output
+          - pull_output
+          - apply_output
