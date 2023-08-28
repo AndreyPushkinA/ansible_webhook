@@ -7,7 +7,7 @@ services:
     volumes:
       - .:/app
       - /opt/webhook:/opt/webhook
-      - /opt/cicdtest/chat-messages-telegram:/opt/cicdtest/chat-messages-telegram 
+      - /opt/esphome-yaml-constructor:/opt/esphome-yaml-constructor
     working_dir: /app
     ports:
       - "5000:5000"
