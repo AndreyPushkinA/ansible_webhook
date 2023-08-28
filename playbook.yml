@@ -3,8 +3,7 @@
   connection: local
   gather_facts: false
   vars:
-    repo_path: /opt/cicdtest/chat-messages-telegram
-
+    repo_path: /opt/esphome-yaml-constructor
   tasks:
     - name: Stash Changes
       command: git stash
