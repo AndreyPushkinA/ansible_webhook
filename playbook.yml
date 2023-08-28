@@ -1,4 +1,3 @@
-root@kolkhoz:/opt/webhook# cat playbook.yml 
 - name: Update Repository
   hosts: localhost
   connection: local
