@@ -5,6 +5,12 @@
   vars:
     repo_path: /opt/esphome-yaml-constructor
   tasks:
+      - name: Docker Down
+      command: docker compose down
+      args:
+        chdir: "{{ repo_path }}"
+      register: docker_down
+      
     - name: Stash Changes
       command: git stash
       args:
@@ -23,9 +29,29 @@
          chdir: "{{ repo_path }}"
       register: apply_output
 
+      - name: Docker Up -d --build
+      command: docker compose up -d --build
+      args:
+        chdir: "{{ repo_path }}"
+      register: docker_up_d
+
+      - name: Docker Up
+      command: docker compose up 
+      args:
+        chdir: "{{ repo_path }}"
+      register: docker_up
+
+      - name: Nginx
+      command: systemctl restart nginx
+      register: nginx
+
     - name: Display Results
       debug:
         var:
+          - docker down
           - stash_output
           - pull_output
           - apply_output
+          - docker_up_d
+          - docker_up
+          - nginx
