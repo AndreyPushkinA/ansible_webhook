@@ -1,0 +1,57 @@
+- name: Update Repository
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    repo_path: /opt/esphome-download-ota/esphome-yaml-constructor
+  tasks:
+      - name: Docker Down
+      command: docker compose down
+      args:
+        chdir: "{{ repo_path }}"
+      register: docker_down
+      
+    - name: Stash Changes
+      command: git stash
+      args:
+        chdir: "{{ repo_path }}"
+      register: stash_output
+
+    - name: Pull Latest Changes
+      command: git pull
+      args:
+        chdir: "{{ repo_path }}"
+      register: pull_output
+
+    - name: Apply Stashed Changes
+      command: git stash apply
+      args:
+         chdir: "{{ repo_path }}"
+      register: apply_output
+
+      - name: Docker Up -d --build
+      command: docker compose up -d --build
+      args:
+        chdir: "{{ repo_path }}"
+      register: docker_up_d
+
+      - name: Docker Up
+      command: docker compose up 
+      args:
+        chdir: "{{ repo_path }}"
+      register: docker_up
+
+      - name: Nginx
+      command: systemctl restart nginx
+      register: nginx
+
+    - name: Display Results
+      debug:
+        var:
+          - docker down
+          - stash_output
+          - pull_output
+          - apply_output
+          - docker_up_d
+          - docker_up
+          - nginx
