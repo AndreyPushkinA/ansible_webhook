@@ -8,6 +8,7 @@ services:
       - .:/app
       - /opt/webhook:/opt/webhook
       - /opt/esphome-yaml-constructor:/opt/esphome-yaml-constructor
+      - /opt/esphome-download-ota/esphome-yaml-constructor:/opt/esphome-download-ota/esphome-yaml-constructor
     working_dir: /app
     ports:
       - "5000:5000"
