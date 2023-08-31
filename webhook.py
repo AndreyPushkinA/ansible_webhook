@@ -17,7 +17,7 @@ def webhook():
             
                 subprocess.run(["ansible-playbook", playbook_path])
                 print("Ansible playbook executed successfully for the main branch")
-            elif branch == 'download_ota:
+            elif branch == 'download_ota':
                 playbook_path = "/opt/webhook/playbook_download_ota.yml"
             
                 subprocess.run(["ansible-playbook", playbook_path])
