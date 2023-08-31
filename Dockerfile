@@ -1,10 +1,9 @@
 FROM ubuntu:latest
 
 RUN apt-get update && \
-    apt-get install -y python3 libffi-dev && \
-    apt-get install -y python3 python3-pip && \
-    apt-get install -y git
-    apt-get install -y python3
+    apt-get install -y python3 libffi-dev python3-pip git && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements.txt /app/requirements.txt
 
