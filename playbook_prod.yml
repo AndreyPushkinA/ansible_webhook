@@ -5,7 +5,7 @@
   vars:
     repo_path: /opt/esphome-yaml-constructor
   tasks:
-      - name: Docker Down
+    - name: Docker Down
       command: docker compose down
       args:
         chdir: "{{ repo_path }}"
@@ -29,19 +29,19 @@
          chdir: "{{ repo_path }}"
       register: apply_output
 
-      - name: Docker Up -d --build
+    - name: Docker Up -d --build
       command: docker compose up -d --build
       args:
         chdir: "{{ repo_path }}"
       register: docker_up_d
 
-      - name: Docker Up
+    - name: Docker Up
       command: docker compose up 
       args:
         chdir: "{{ repo_path }}"
       register: docker_up
 
-      - name: Nginx
+    - name: Nginx
       command: systemctl restart nginx
       register: nginx
 
