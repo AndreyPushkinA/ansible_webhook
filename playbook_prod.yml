@@ -36,9 +36,7 @@
       register: docker_up_d
 
     - name: Docker Up
-      command: docker compose up 
-      args:
-        chdir: "{{ repo_path }}"
+      command: docker compose -f"{{ repo_path }}/docker-compose.yaml" up -d
       register: docker_up
 
     - name: Nginx
