@@ -5,12 +5,6 @@
   vars:
     repo_path: /opt/esphome-yaml-constructor
   tasks:
-    - name: Docker Down
-      command: docker compose down
-      args:
-        chdir: "{{ repo_path }}"
-      register: docker_down
-      
     - name: Stash Changes
       command: git stash
       args:
